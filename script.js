@@ -2,7 +2,7 @@ class Calculator {
     constructor(previousOperandTextElement, currentOperandTextElement) {
         this.previousOperandTextElement = previousOperandTextElement
         this.currentOperandTextElement = currentOperandTextElement
-        this.clear
+        this.clear()
     }
 
     clear() {
@@ -22,7 +22,7 @@ class Calculator {
 
     chooseOperation(operation) {
         if (this.currentOperand === '') return
-        if(this.previousOperand !== '') {
+        if (this.previousOperand !== '') {
             this.compute()
         }
         this.operation = operation
@@ -59,14 +59,13 @@ class Calculator {
     getDisplayNumber(number) {
         const stringNumber = number.toString()
         const integerDigits = parseFloat(stringNumber.split('.')[0])
-        const integerDigits = stringNumber.split('.')[1]
+        const decimalDigits = stringNumber.split('.')[1]
         let integerDisplay
         if(isNaN(integerDigits)) {
             integerDisplay = ''
         }
         else {
-            integerDisplay - integerDigits.toLocaleString('en', {
-                maximumFractionDigits: 0 })
+            integerDisplay - integerDigits.toLocaleString('en', { maximumFractionDigits: 0 })
         }
         if(decimalDigits != null) {
             return `${integerDisplay}.${decimalDigits}`
