@@ -1,25 +1,30 @@
 class Calculator {
+
   constructor(previousOperandTextElement, currentOperandTextElement) {
     this.previousOperandTextElement = previousOperandTextElement
     this.currentOperandTextElement = currentOperandTextElement
     this.clear()
   }
 
+  /* remove all the numbers and the operation displayed */
   clear() {
     this.currentOperand = ''
     this.previousOperand = ''
     this.operation = undefined
   }
 
+  /* deletes the last digit */
   delete() {
     this.currentOperand = this.currentOperand.toString().slice(0, -1)
   }
+
 
   appendNumber(number) {
     if (number === '.' && this.currentOperand.includes('.')) return
     this.currentOperand = this.currentOperand.toString() + number.toString()
   }
 
+  /* checks if the operation can be done */
   chooseOperation(operation) {
     if (this.currentOperand === '') return
     if (this.previousOperand !== '') {
@@ -30,22 +35,28 @@ class Calculator {
     this.currentOperand = ''
   }
 
+  /* computes the opration chosen */
   compute() {
     let computation
+    let operand
     const prev = parseFloat(this.previousOperand)
     const current = parseFloat(this.currentOperand)
     if (isNaN(prev) || isNaN(current)) return
     switch (this.operation) {
       case '+':
+        operand = '+'
         computation = prev + current
         break
       case '-':
+        operand = '-'
         computation = prev - current
         break
       case '*':
+        operand = '*'
         computation = prev * current
         break
       case '÷':
+        operand = '÷'
         computation = prev / current
         break
       default:
@@ -54,7 +65,7 @@ class Calculator {
     this.currentOperand = computation
     this.operation = undefined
     this.previousOperand = ''
-  }
+    }
 
   getDisplayNumber(number) {
     const stringNumber = number.toString()
@@ -73,12 +84,11 @@ class Calculator {
     }
   }
 
+  /* displays the result */
   updateDisplay() {
-    this.currentOperandTextElement.innerText =
-      this.getDisplayNumber(this.currentOperand)
+    this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand)
     if (this.operation != null) {
-      this.previousOperandTextElement.innerText =
-        `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
+      this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
     } else {
       this.previousOperandTextElement.innerText = ''
     }
